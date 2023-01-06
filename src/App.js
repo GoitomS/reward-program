@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+
 import './App.css';
+import RewardsPage from './components/RewardsPage';
+import { useEffect, useState } from 'react';
+import rewardsCreator from './api/rewardsCreator';
+import SearchComponent from './components/SearchComponent';
 
 function App() {
-  return (
+
+    const rewards = rewardsCreator()
+    const [id, setId] = useState('')
+    const [dispData, setDispdata] = useState(rewards)
+
+    const handleClick=()=>{
+      const filteredData = rewards.filter(cust=> cust.id === id)
+      setDispdata(filteredData)
+  }
+
+  const handleChange = (e) => {
+    setId(e.target.value)
+    if(!e.target.value){
+      setDispdata(rewards)
+    }
+  }
+
+  useEffect(()=>{
+
+  }, [dispData])
+
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchComponent data={rewards} handleChange = {handleChange} filter={handleClick}/>
+      <RewardsPage rewards={dispData}/>
     </div>
   );
 }
