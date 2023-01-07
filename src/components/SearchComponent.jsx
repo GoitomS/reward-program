@@ -1,5 +1,5 @@
 import React from 'react';
-import './SearchComponent.css'
+import '../styles/SearchComponent.css'
 
 const SearchComponent = ({data, filter, handleChange}) => {
 
